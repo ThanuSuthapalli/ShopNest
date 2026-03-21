@@ -9,6 +9,21 @@ import { useState } from 'react'
 export function Header() {
   const { isAuthenticated, cartCount, logout } = useStore()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
+
+  const categories = [
+    'All',
+    'Electronics',
+    'Clothing',
+    'Accessories',
+    'Home & Kitchen',
+    'Sports & Outdoors',
+    'Beauty & Personal Care',
+    'Footwear',
+    'Toys & Games',
+    'Books',
+    'Food & Beverages',
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
@@ -22,13 +37,38 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="relative hidden items-center gap-6 md:flex">
           <Link
             href="/products"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             Products
           </Link>
+
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setFilterOpen(!filterOpen)}
+              className="rounded-md border border-muted p-1 px-2 text-sm font-medium text-muted-foreground hover:border-primary hover:text-foreground"
+            >
+              Filter
+            </button>
+            {filterOpen && (
+              <div className="absolute left-0 top-full z-50 mt-1 w-52 rounded-md border bg-base-100 p-2 shadow-lg">
+                {categories.map(category => (
+                  <Link
+                    key={category}
+                    href={category === 'All' ? '/products' : `/products?category=${encodeURIComponent(category)}`}
+                    onClick={() => setFilterOpen(false)}
+                    className="block rounded px-2 py-1 text-sm text-foreground hover:bg-muted"
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <Link
             href="/cart"
             className="relative flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -98,6 +138,18 @@ export function Header() {
             >
               Products
             </Link>
+            <div className="border-t pt-2">
+              {categories.map(category => (
+                <Link
+                  key={category}
+                  href={category === 'All' ? '/products' : `/products?category=${encodeURIComponent(category)}`}
+                  className="block rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
             <Link
               href="/cart"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"

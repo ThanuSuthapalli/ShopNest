@@ -169,12 +169,12 @@ export default function CheckoutPage() {
                     {item.product.name}
                   </h4>
                   <p className="text-sm text-muted-foreground">
-                    Qty: {item.quantity} × ${item.product.price.toFixed(2)}
+                    Qty: {item.quantity} × ₹{item.product.price.toLocaleString('en-IN')}
                   </p>
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                   </span>
                 </div>
               </div>
@@ -190,18 +190,18 @@ export default function CheckoutPage() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Subtotal</span>
-              <span className="font-medium">${subtotal.toFixed(2)}</span>
+              <span className="font-medium">₹{subtotal.toLocaleString('en-IN')}</span>
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Shipping</span>
               <span className="font-medium">
-                {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                {shipping === 0 ? 'Free' : `₹${shipping.toLocaleString('en-IN')}`}
               </span>
             </div>
             <hr />
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Total</span>
-              <span className="text-lg font-semibold">${total.toFixed(2)}</span>
+              <span className="text-lg font-semibold">₹{total.toLocaleString('en-IN')}</span>
             </div>
 
             <div className="rounded-lg bg-muted/50 p-4">

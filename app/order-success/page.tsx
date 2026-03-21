@@ -114,7 +114,7 @@ export default function OrderSuccessPage() {
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                   </span>
                 </div>
               </div>
@@ -126,15 +126,14 @@ export default function OrderSuccessPage() {
           {/* Total */}
           <div className="flex items-center justify-between">
             <span className="text-lg font-semibold">Total Paid</span>
-            <span className="text-lg font-semibold">${orderData.total}</span>
+            <span className="text-lg font-semibold">₹{parseFloat(orderData.total).toLocaleString('en-IN')}</span>
           </div>
 
           {/* Info Box */}
           <div className="rounded-lg bg-muted/50 p-4">
             <p className="text-center text-sm text-muted-foreground">
               A confirmation email has been sent to your email address.
-              <br />
-              (This is a demo - no actual email will be sent)
+            
             </p>
           </div>
         </CardContent>

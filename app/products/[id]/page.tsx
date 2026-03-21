@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
           )}
 
           <p className="mt-4 text-3xl font-semibold text-foreground">
-            ${product.price.toFixed(2)}
+            ₹{product.price.toLocaleString('en-IN')}
           </p>
 
           <p className="mt-6 text-muted-foreground leading-relaxed">
@@ -214,7 +214,7 @@ export default function ProductDetailPage() {
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Subtotal</span>
               <span className="text-lg font-semibold text-foreground">
-                ${(product.price * quantity).toFixed(2)}
+                ₹{(product.price * quantity).toLocaleString('en-IN')}
               </span>
             </div>
           </div>

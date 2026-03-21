@@ -36,7 +36,7 @@ export function CartItem({ item }: CartItemProps) {
         <div>
           <h3 className="font-medium text-foreground">{item.product.name}</h3>
           <p className="mt-1 text-lg font-semibold text-foreground">
-            ${item.product.price.toFixed(2)}
+            ₹{item.product.price.toLocaleString('en-IN')}
           </p>
         </div>
         <div className="flex items-center justify-between">

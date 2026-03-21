@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { ProductCard, ProductCardSkeleton } from '@/components/product/product-card'
 import { getAllProducts as getFirestoreProducts } from '@/lib/firestore-service'
 import { getAllProducts as getMockProducts } from '@/lib/mock-data'
@@ -12,6 +13,12 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+
+  const selectedCategory = useMemo(() => {
+    const category = searchParams.get('category')
+    return !category || category === 'All' ? null : category
+  }, [searchParams])
 
   const fetchProducts = async () => {
     try {
@@ -24,6 +31,10 @@ export default function ProductsPage() {
       // Fall back to mock data if Firestore is empty
       if (data.length === 0) {
         data = getMockProducts()
+      }
+
+      if (selectedCategory) {
+        data = data.filter((product) => product.category === selectedCategory)
       }
 
       setProducts(data)
@@ -43,7 +54,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchProducts()
-  }, [])
+  }, [searchParams])
 
   const handleRetry = () => {
     fetchProducts()

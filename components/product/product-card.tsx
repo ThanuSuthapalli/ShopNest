@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h3>
         <p className="mt-1 text-lg font-semibold text-foreground">
-          ${product.price.toFixed(2)}
+          ₹{product.price.toLocaleString('en-IN')}
         </p>
         <Link href={`/products/${product.id}`} className="mt-3 block">
           <Button variant="outline" className="w-full bg-transparent">
